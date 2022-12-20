@@ -1,0 +1,1 @@
+extend-diff-ignore = "(^|/)(config\.sub|config\.guess|ltmain.sh|depcomp|install-sh|missing|Makefile.in|aclocal.m4|configure)$"

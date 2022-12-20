@@ -1,0 +1,25 @@
+Author: Andreas Barth <aba@not.so.argh.org>
+Description: maildrop (1.5.3-1.1) unstable; urgency=low
+
+  * NMU during Darmstadt BSP
+  * if failing to deliver, give back temporary failure. Closes: #265399
+
+ -- Andreas Barth <aba@not.so.argh.org>  Sat, 21 Aug 2004 17:22:00 +0200
+
+ http://bugs.debian.org/265399
+ http://bugs.debian.org/481223
+
+--- maildrop.orig/libs/maildrop/deliver.C
++++ maildrop/libs/maildrop/deliver.C
+@@ -162,11 +162,7 @@ Buffer	b;
+ 		if ( deliver_maildir.MaildirOpen(mailbox, deliver_file,
+ 			maildrop.msgptr->MessageSize()) < 0)
+ 		{
+-#if HAVE_COURIER
+ 			throw 75;
+-#else
+-			throw 77;
+-#endif
+ 		}
+ 
+ 		format_mbox.Init(0);

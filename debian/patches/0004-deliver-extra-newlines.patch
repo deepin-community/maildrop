@@ -1,0 +1,30 @@
+Author: Josip Rodin <joy-packages@debian.org>
+Description: maildrop (2.0.2-10) unstable; urgency=low
+
+  * Restored the patch to maildrop/deliver.C which avoids an extra newline
+    before From_. This had originally fixed bug #156264. (dpatch 009)
+
+ -- Josip Rodin <joy-packages@debian.org>  Tue, 12 Sep 2006 18:53:15 +0200
+
+ http://bugs.debian.org/156264
+
+
+--- maildrop.orig/libs/maildrop/deliver.C
++++ maildrop/libs/maildrop/deliver.C
+@@ -226,15 +226,7 @@ Buffer	b;
+ 		{
+ 			format_mbox.Init(1);
+ 
+-			if ((stat_buf.st_size > 0 &&
+-			     mio.write(
+-#if	CRLF_TERM
+-				       "\r\n", 2
+-#else
+-				       "\n", 1
+-#endif
+-				       ) < 0) ||
+-			    format_mbox.DeliverTo(mio))
++			if (format_mbox.DeliverTo(mio))
+ 			{
+ 				dotlock.truncate();
+ 				log(mailbox, -1, format_mbox);

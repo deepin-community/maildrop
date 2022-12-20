@@ -1,0 +1,597 @@
+maildrop (2.9.3-deepin1) unstable; urgency=medium
+
+  * Rebuild
+
+ -- Deepin Packages Builder <packages@deepin.org>  Mon, 14 Nov 2022 17:47:20 +0800
+
+maildrop (2.9.3-2) unstable; urgency=medium
+
+  * Migrate VCS from alioth to salsa. 
+  * Cross build ready.  Closes: #901367 
+
+ -- Osamu Aoki <osamu@debian.org>  Sun, 01 Jul 2018 16:05:35 +0900
+
+maildrop (2.9.3-1) unstable; urgency=medium
+
+  * New upstream releases. (2.8.5, 2.9.0, 2.9.1, 2.9.2, 2.9.3)
+    Closes: #871587
+  * Drop a patch taken from upstream.
+
+ -- Osamu Aoki <osamu@debian.org>  Sun, 24 Dec 2017 01:43:23 +0900
+
+maildrop (2.8.4-2) unstable; urgency=medium
+
+  * Fix reproduceble build.  Closes:  #846971
+  * Update by the upstream courier-libs VCS.
+  * Fixed in upstream.  Closes: #783539, #842718
+  * Update VCS URLs.
+
+ -- Osamu Aoki <osamu@debian.org>  Sun, 11 Dec 2016 14:15:51 +0900
+
+maildrop (2.8.4-1) unstable; urgency=low
+
+  * New upstream release.
+  * Drop obsolete explanation of courier-maildrop from README.Debian,
+    following changes there.
+  * De-duplicate, update and condense the information about Debian-specific
+    patches in README.Debian.
+
+ -- Josip Rodin <joy-packages@debian.org>  Sun, 06 Nov 2016 15:40:50 +0100
+
+maildrop (2.8.3-0.1) unstable; urgency=medium
+
+  * Non-maintainer upload
+  * Imported Upstream version 2.8.3
+  * Rebase patches on top of 2.8.3 release
+  * Build-Depend on courier-authlib-dev (>= 0.66.4-5~) and Depend on
+    courier-authlib (>= 0.66.4-5~) to get correct shared libraries
+    without the RPATH
+  * Add Breaks/Replaces for courier-maildrop (<< 2.8.3+0.75.0-15~)
+  * Add libcourier-unicode-dev to Build-Depends
+  * Force Makefile.in regeneration in override_dh_autoreconf target
+  * Set default variables using dh_auto_configure in
+    override_dh_auto_configure target
+  * Enable autotools-dev dh addon to get support for new architectures
+  * Enable full Debian hardening
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 17 Mar 2016 10:56:06 +0100
+
+maildrop (2.7.1-3) unstable; urgency=medium
+
+  * Fix regression in 2.7.1-2 by reactivating support for
+    the courier-authlib itself.  Closes: #774598
+
+ -- Osamu Aoki <osamu@debian.org>  Tue, 13 Jan 2015 23:14:59 +0900
+
+maildrop (2.7.1-2) unstable; urgency=medium
+
+  * Drop dovocet patch. (No more upstream activity.) Closes: #692519 
+
+ -- Osamu Aoki <osamu@debian.org>  Wed, 15 Oct 2014 23:18:47 +0900
+
+maildrop (2.7.1-1) unstable; urgency=medium
+
+  * New upstream version.  Closes: #691920
+    - pattern searches are now specified in UTF-8. Closes: #709555
+  * Update debian/rules using DEB_*_MAINT_APPEND (compat=9).
+  * Update patches reflecting directories moved under libs.
+  * Patch for CVE-2010-0301 updated by Sam Varshavchik.
+
+ -- Osamu Aoki <osamu@debian.org>  Sat, 01 Feb 2014 00:07:35 +0900
+
+maildrop (2.6.0-1) unstable; urgency=low
+
+  * New upstream version. Fixed From: parsing as ^From:. Closes: #520344
+  * Drop old workaround for arm architecture.
+  * Use dpkg-buildflags. 
+
+ -- Osamu Aoki <osamu@debian.org>  Tue, 21 May 2013 22:15:38 +0900
+
+maildrop (2.5.5-2) unstable; urgency=low
+
+  * Skip patching makefile.in. Closes: #661156 
+  * Add URLs for upstream and VCS.
+  * NMU fix in 2.2.0-3.1 is included in 2.5.5-1. Closes: #660872
+  * Update copyright to DEP-5.
+  * Document use of GID mail in README.Debian and manpage. Closes: #394779
+  * Document killing of child processes in README.Debian. Closes: #339749
+
+ -- Osamu Aoki <osamu@debian.org>  Sat, 02 Jun 2012 12:37:16 +0900
+
+maildrop (2.5.5-1) unstable; urgency=low
+
+  * New upstream version.  Closes: #580682, #629124, #643025, #462140, #457494,
+    #390719, #185149
+  * New build fixes gcc optimization problem.  Closes: #559045
+  * Repackaed as the 3.0 (quilt) format source package using 
+    --with autoreconf and enabling hardened build flags. Closes: #655133
+  * All patches are synched with the new upstream source with more 
+    descriptions. 
+  * Apply Dovecot Authentication extension patch. Closes: #592585
+  * Document Debian patch changes and update postfix howto. Closes: #564440 
+
+ -- Osamu Aoki <osamu@debian.org>  Tue, 21 Feb 2012 22:12:37 +0900
+
+maildrop (2.2.0-3.1) unstable; urgency=high
+
+  * Non-maintainer upload by the security team
+  * Fix privilege escalation via maildrop -d which grants root group
+    privileges (Closes: #564601) Thanks to Sam Varshavchik
+
+ -- Steffen Joeris <white@debian.org>  Thu, 28 Jan 2010 20:24:22 +0100
+
+maildrop (2.2.0-3) unstable; urgency=low
+
+  * Made the install rule a prerequisite for binary-arch as well as
+    binary, which should unscrew the buildd builds, closes: #555156.
+  * Reduced the dependency on a local MTA to a Recommends, closes: #537962.
+
+ -- Josip Rodin <joy-packages@debian.org>  Mon, 09 Nov 2009 00:19:46 +0100
+
+maildrop (2.2.0-2) unstable; urgency=low
+
+  * Added libtool to the build-depends because a clean rebuild implicitly
+    requires it and most buildds failed because of it. (Also temporary.)
+
+ -- Josip Rodin <joy-packages@debian.org>  Sun, 08 Nov 2009 11:35:33 +0100
+
+maildrop (2.2.0-1) unstable; urgency=low
+
+  * New upstream version.
+    + Updated copyright license to GPL v3.
+    + Delivery to pipes should no longer fail if the command causes -EPIPE
+      but otherwise succeeds. It still prints the first error message
+      ("maildrop: error writing to mailbox.") to stderr, but we have been
+      recommending callers to ignore such output in when maildrop's own
+      return code is not a failure, closes: #332543.
+    + Dropped the fixes for automake fixes :)
+  * Explicitly added --with-db=gdbm just to make sure we keep the old
+    default.
+  * Added manual courier-authlib dependency to work around #554788.
+  * Added binary-or-shlib-defines-rpath /usr/lib/courier-authlib lintian
+    override, this RPATH must continue to exist to work around #378241.
+  * While at it, wrote down the lintian overrides for other two issues
+    we've been carrying around intentionally.
+  * Removed the default -O2 from CFLAGS on arm to work around #471258,
+    closes: #471250.
+  * Switched from cdbs + simple patchsys to debhelper dh (v7) and quilt.
+  * Added README.source for quilt.
+  * Upped standards version to 3.8.3.
+  * Re-added the patch for makedat docs, our default automake is the same
+    and our default autoconf is a tad newer than upstream, so it should
+    work. Added temporary build-depends on automake and autoconf.
+  * Removed Andres from Uploaders at his request.
+
+ -- Josip Rodin <joy-packages@debian.org>  Fri, 06 Nov 2009 10:34:05 +0100
+
+maildrop (2.0.4-3) unstable; urgency=low
+
+  * Integrated 010-makedat-doc-install.patch into the main .diff.gz
+    for now, because otherwise we have to build-depend on automake 1.9,
+    too (lest the package fails to build everywhere else).
+
+ -- Josip Rodin <joy-packages@debian.org>  Sun, 20 Jan 2008 22:08:45 +0100
+
+maildrop (2.0.4-2) unstable; urgency=low
+
+  * Added dpatch 010-makedat-doc-install.patch which amends top-level
+    Makefile.am so that makedat docs are properly installed, like
+    everything else is.
+  * The makedat program was moved into the maildrop source build as well
+    (apparently it used to be disabled by mistake), so added
+    the alternatives for it, and a Replaces: courier-base (<= 0.58.0-1),
+    closes: #459545.
+    Kept makedatprog in /usr/bin, but symlinked makedatprog(1) manpage
+    to makedat(1).
+
+ -- Josip Rodin <joy-packages@debian.org>  Sun, 20 Jan 2008 12:13:03 +0100
+
+maildrop (2.0.4-1) unstable; urgency=low
+
+  * New upstream version.
+    + Includes Kurt Roeckx's fixes to the build system.
+  * Reran autoreconf, which combines with the above changes fixes
+    the rpath craziness on amd64 and adds the courier-authlib dependency,
+    closes: #395529.
+  * Removed s/--mode=link/--quiet --mode=link/ and
+    s/--mode=compile/--quiet --mode=compile/ from automake.fix,
+    it hides information from build logs (noticed by Kurt).
+  * Updated 002-maildrop-debian-paths.patch just to match the new
+    offsets in files (no content change).
+  * Addressed the inadequacies in the description as reported by Reuben
+    Thomas, but without gutting it and instead by describing all the
+    additional functions and programs shipped in the package, closes: #396540.
+
+ -- Josip Rodin <joy-packages@debian.org>  Fri, 04 Jan 2008 20:20:13 +0100
+
+maildrop (2.0.3-1) unstable; urgency=low
+
+  * New upstream version. Out of six changes in it, one is an innocuous
+    umask fix in deliverquota, and five are ours:
+    + Dropped 001-lockmail-setgid.patch, upstream now does setgid(getgid())
+      (as well as setuid(getuid())).
+    + Dropped 005-maildrop-dotlock-throw-clarifications.patch, adopted
+      upstream.
+    + Dropped 006-maildirmake-error-clarification.patch, ditto.
+    + Dropped 007-maildirmake.1.quotas.patch, ditto.
+    + Dropped 008-maildropex-ref-mailbot.patch, ditto.
+    + Dropped 010-maildrop-authlib-optional.patch, ditto.
+  * Avoided touching Makefile.am to change the htmldir variable
+    (s,$(pkgdatadir)/html,$(datadir)/doc/maildrop/html,) and instead
+    done that post res in the rules file, just to avoid running
+    automake et al every time.
+  * Polished up the package description.
+
+ -- Josip Rodin <joy-packages@debian.org>  Mon,  8 Jan 2007 01:58:36 +0100
+
+maildrop (2.0.2-11) unstable; urgency=medium
+
+  * Revised the patch that made authlib optional to include a new
+    command-line option (-a) which can revert it run-time.
+    Updated the documentation and NEWS for the former change.
+    (This functionality got included in upstream CVS on 2006-10-01, together
+    with a new configure option (--enable-authlib-tempreject) which sets the
+    default at build-time.)
+  * Added build-conflicts with libfam-dev, just in case someone tries it
+    like that, closes: #387157.
+  * Upped standards version to 3.7.2.
+
+ -- Josip Rodin <joy-packages@debian.org>  Wed, 20 Sep 2006 20:39:29 +0200
+
+maildrop (2.0.2-10) unstable; urgency=low
+
+  * Avoid using dh_fixperms -X (via DEB_FIXPERMS_EXCLUDE) because it just
+    doesn't work properly, and instead put the chgrp/chmod in the
+    binary-predeb/maildrop rule, closes: #386952.
+  * Restored the patch to maildrop/deliver.C which avoids an extra newline
+    before From_. This had originally fixed bug #156264. (dpatch 009)
+  * In the find_in_authlib() function, in case the call to
+    auth_getuserinfo() failed, don't throw a temporary failure,
+    and instead just return 0 which will make the code which calls
+    find_in_authlib proceed as if the user is not found. This pretty
+    much handles the upgrades from the old setup, and closes: #314847.
+    Note that for the others who want authdaemon but can't reach it,
+    maildrop delivery will misbehave, which is bad but not entirely
+    unexpected. Thanks to Andres Salomon for the exact patch. (dpatch 010)
+
+ -- Josip Rodin <joy-packages@debian.org>  Tue, 12 Sep 2006 18:53:15 +0200
+
+maildrop (2.0.2-9) unstable; urgency=high
+
+  * (The adding back of #325135 fix fixes CAN-2005-2655.)
+  * Updated README.Debian for #82986 fix.
+  * Fixed faulty reference to maildir quotas in maildirmake(1),
+    closes: #360725. (dpatch 007)
+  * Added the workaround for the apparent dh_install vs. sudo problem
+    which caused some /etc/maildroprc files to be owned by a user,
+    closes: #386700.
+  * Mention mailbot in the maildropex manual page, thanks to
+    Ralf Hildebrandt, closes: #381540. (dpatch 008)
+  * The html/ docs weren't getting installed in the location patched
+    by dpatch 002, so re-ran automake (and before that aclocal, because
+    we have 1.9.6 and this one's from 1.9.5, waah).
+  * Rebuilt with courier-authlib 0.58-4 which has shlibs, and dropped
+    the manual dependency. Added the versioned build-dependency on the
+    -dev package, at least for now.
+
+ -- Josip Rodin <joy-packages@debian.org>  Sun, 10 Sep 2006 12:17:08 +0200
+
+maildrop (2.0.2-8) unstable; urgency=high
+
+  * Re-added the fix for #82986 - it went into sarge, and I still basically
+    agree with the rationale. Filter directory and files being accessible
+    to groups and the world is permissible; just check for world-writability.
+  * Dumped urgency to high because of this and because of the fix in the
+    previous revision (and -6 had just gotten into testing :/).
+
+ -- Josip Rodin <joy-packages@debian.org>  Sun, 10 Sep 2006 00:12:11 +0200
+
+maildrop (2.0.2-7) unstable; urgency=low
+
+  * Added 006-maildirmake-error-clarifications.patch, which clarifies
+    two basic error messages in maildirmake.
+  * Added *back* the patch that fixes the privilege escalation in lockmail,
+    which was fixed on August 29, 2005, but reintroduced afterwards and
+    survived up to now. Damn. Thanks to Andreas Barth for noticing.
+    This finally closes: #325135.
+
+ -- Josip Rodin <joy-packages@debian.org>  Sat,  9 Sep 2006 00:18:03 +0200
+
+maildrop (2.0.2-6) unstable; urgency=medium
+
+  * Documented how return_fail_output must be used instead of return_output
+    for our pipe transport in Exim, finally closes: #153501.
+  * Included the NEWS.Debian entry in the package (d'oh!) and fixed
+    the description of the PCRE change impact, thanks to Aaron Schrab,
+    closes: #385487.
+  * Generalized -d problem description to include Postfix, too.
+    I am currently not completely sure how this works without -d, but
+    the existing state of my main mail account confirms that it does,
+    so there :)
+  * Updated the last tidbit in README.Debian to reflect current situation -
+    we don't omit the o-r restriction on .mailfilter at this time.
+    (Don't ask me why...)
+
+ -- Josip Rodin <joy-packages@debian.org>  Thu, 31 Aug 2006 12:29:05 +0200
+
+maildrop (2.0.2-5) unstable; urgency=low
+
+  * Noted documentation for the courier-authlib issue in the NEWS.Debian
+    entry (it's described in INSTALL).
+  * Updated the MTA explicit+pipe dependency to Exim 4, closes: #228581.
+  * Added maildirquota manual page to the alternatives, due to conflict
+    with courier-base, closes: #253092.
+
+ -- Josip Rodin <joy-packages@debian.org>  Wed, 30 Aug 2006 14:06:05 +0200
+
+maildrop (2.0.2-4) unstable; urgency=low
+
+  * Introduced courier-authlib as a dependency, which might actually be
+    wrong but goes a bit further in fixing all the aspects of #314847.
+  * Added 005-maildrop-dotlock-throw-clarifications.patch, which clarifies
+    three error messages WRT dot-locking.
+
+ -- Josip Rodin <joy-packages@debian.org>  Mon, 28 Aug 2006 18:22:23 +0200
+
+maildrop (2.0.2-3) unstable; urgency=low
+
+  * Upload to unstable.
+  * Added a NEWS.Debian file outlining the major incompatibility changes
+    between 1.x and 2.x.
+  * Updated README.Debian bits about the -d option, noted the generic
+    sendmail example etc.
+
+ -- Josip Rodin <joy-packages@debian.org>  Mon, 28 Aug 2006 01:41:20 +0200
+
+maildrop (2.0.2-2) experimental; urgency=low
+
+  * Added the forgotten new build dependency on PCRE, closes: #381097.
+
+ -- Josip Rodin <joy-packages@debian.org>  Fri, 25 Aug 2006 22:39:25 +0200
+
+maildrop (2.0.2-1) experimental; urgency=low
+
+  * New upstream version.
+  * Dropped 001-maildrop-fhs-var-mail.patch, dilinger's patch got included
+    upstream on 2005-06-18.
+  * Dropped 003-maildrop-maildropfilter-typo.patch, it's upstream.
+  * Updated copyright file with new URL and extended copyright.
+
+ -- Josip Rodin <joy-packages@debian.org>  Sat, 29 Jul 2006 12:38:17 +0200
+
+maildrop (1.8.1-2) experimental; urgency=low
+
+  * Build against courier's authlib; this allows for more flexible
+    authentication (closes: #212701, #222421, #303458).
+
+ -- Andres Salomon <dilinger@debian.org>  Thu, 16 Jun 2005 00:05:00 -0400
+
+maildrop (1.8.1-1) experimental; urgency=low
+
+  * New upstream release (closes: #272171).
+  * Add myself as a co-maintainer.
+  * Convert build system to cdbs.  We'll keep the old build system around
+    for a bit, 'cause it's cool.
+
+ -- Andres Salomon <dilinger@debian.org>  Wed, 15 Jun 2005 13:09:56 -0400
+
+maildrop (1.5.3-2) unstable; urgency=high
+
+  * Add myself as a co-maintainer.
+  * Ack NMU (closes: #265399).
+  * [SECURITY] Fix privilege escalation bug, whereby one can obtain access
+    to group "mail"; lockmail forgets to drop privs.  Thanks to Max Vozeler
+    (CAN-2005-2655) (closes: #325135).
+
+ -- Andres Salomon <dilinger@debian.org>  Mon, 29 Aug 2005 12:52:46 -0400
+
+maildrop (1.5.3-1.1) unstable; urgency=low
+
+  * NMU during Darmstadt BSP
+  * if failing to deliver, give back temporary failure. Closes: #265399
+
+ -- Andreas Barth <aba@not.so.argh.org>  Sat, 21 Aug 2004 17:22:00 +0200
+
+maildrop (1.5.3-1) unstable; urgency=low
+
+  * New upstream version.
+    + Adds missing "d" (delete) in the sed example in maildropex(5),
+      closes: #198016.
+  * Updated gdbm build-dep, closes: #199601.
+  * Provide an alternative for the maildir(5) manual page, closes: #187256.
+  * Explicitely set sysconfdir to /etc to avoid /usr/etc junk in manual
+    pages, closes: #197730.
+  * Fixed typo in reformime.1, closes: #198034.
+  * Added a missing clause in maildropex(5), closes: #198163.
+  * Added convenience manual page aliases maildroprc(5) and mailfilter(5),
+    closes: #199007.
+
+ -- Josip Rodin <joy-packages@debian.org>  Wed,  2 Jul 2003 00:40:42 +0200
+
+maildrop (1.5.2-1) unstable; urgency=low
+
+  * New upstream version.
+  * Allow .mailfilter files (and ~/.mailfilters directory) to be
+    world/group-readable in maildrop/main.C, closes: #82986.
+  * Set the location of system mailboxes to /var/mail.
+  * Eliminated all references to anything but /usr/sbin/sendmail.
+  * Removed the virtual accounts section from the maildrop manual page,
+    closes: #141398.
+  * Fixed error handling in maildrop/main.C so that it distinguishes
+    between different types of problems, closes: #169252.
+  * The header-adding option now documented as -A (not -a) in maildrop(1),
+    closes: #153511.
+  * Replaced dotlock alternative with lockmail.
+
+ -- Josip Rodin <joy-packages@debian.org>  Sat,  8 Mar 2003 17:58:48 +0100
+
+maildrop (1.4.0-1) unstable; urgency=low
+
+  * New upstream version.
+  * Undid the extra \n before From_ change, again. mutt is still bitching. :(
+
+ -- Josip Rodin <jrodin@jagor.srce.hr>  Fri, 28 Jun 2002 20:01:57 +0200
+
+maildrop (1.3.9-1) unstable; urgency=low
+
+  * New upstream version, closes: #148462, #147647, #149250.
+
+ -- Josip Rodin <jrodin@jagor.srce.hr>  Sat,  8 Jun 2002 12:43:01 +0200
+
+maildrop (1.3.7-2) unstable; urgency=high
+
+  * Removed the incredibly stupid and pointless dh_installmanpages call from
+    debian/rules. Other than valid manual pages for binaries we install,
+    it was installing the makedat manual page which we don't need, and two
+    RFCs manual pages that we don't need or want, either. Gah!
+    This fixes the conflict with courier-base over makedat.1, closes: #134639.
+
+ -- Josip Rodin <jrodin@jagor.srce.hr>  Tue, 19 Feb 2002 20:37:37 +0100
+
+maildrop (1.3.7-1) unstable; urgency=low
+
+  * New upstream version.
+  * Reverted the patch that added \n to the start of every message
+    in maildrop/formatmbox.C, because it breaks creation of new mailboxes
+    and makes mutt think old messages were modified and bitch about it,
+    closes: #130516, #132411.
+  * Performed some surgery on maildir/Makefile.am in order to unfuck it.
+
+ -- Josip Rodin <jrodin@jagor.srce.hr>  Sat, 16 Feb 2002 17:28:02 +0100
+
+maildrop (1.3.6-2) unstable; urgency=low
+
+  * Enable flock again (WTH was it disabled? It was enabled in 0.75-2!).
+
+ -- Josip Rodin <jrodin@jagor.srce.hr>  Sat,  2 Feb 2002 22:48:56 +0100
+
+maildrop (1.3.6-1) unstable; urgency=low
+
+  * New upstream version, closes: #127435.
+    Had to tweak maildir/Makefile.am to make it compile, feh.
+  * Fixed the "package (binary)" list in README.Debian, closes: #119116.
+
+ -- Josip Rodin <jrodin@jagor.srce.hr>  Wed,  2 Jan 2002 16:30:30 +0100
+
+maildrop (1.3.0-1) unstable; urgency=low
+
+  * New upstream version.
+  * Fixed dotlock manual page link.
+  * Fixed the mess in update-alternatives calls in postinst and prerm,
+    closes: #84629.
+  * Moved deliverquota(.maildrop) to /usr/sbin, where it seems to belong.
+  * Standards-Version: 3.5.2. Added build-depends on libgdbmg1-dev.
+  * Added maildroptips.txt to the documentation directory, closes: #83953.
+  * Removed dh_suidregister invocation and added Conflicts: suidmanager
+    (<< 0.50) in the control file.
+  * Added "exim | " to mail-transport-agent dependency, to quiet down
+    Lintian.
+  * Rewrote rules file in shell.
+
+ -- Josip Rodin <jrodin@jagor.srce.hr>  Sat, 10 Feb 2001 15:58:28 +0100
+
+maildrop (1.2-2) unstable; urgency=low
+
+  * New maintainer, closes: #78321.
+  * Removed mode u+s from maildrop binary (?!).
+  * Removed a pile of needless stuff from the .diff by fixing
+    Makefile.am, maildir/Makefile.am, and and configure.in.
+  * Added complete set of alternatives for deliverquota, too (because it
+    looks as if courier-imap provides its own one).
+  * Updated the README about the above change, and other things. Added
+    description of how the s[ug]id stuff is handled, and how to set up
+    maildrop as a MDA in Exim and Postfix.
+  * Added README.html to the doc dir. I'd add README.postfix, too, but it
+    describes using some db stuff that's not currently enabled in the
+    package. (feel free to test this and file wishlist bugs if it works)
+  * Used correct (top-level) changelog.
+  * Updated for Policy 3.2.1.
+    + checks for $1 and set -e in p* scripts
+    + checks for DEB_BUILD_OPTIONS in rules
+
+ -- Josip Rodin <jrodin@jagor.srce.hr>  Wed, 29 Nov 2000 16:23:50 +0100
+
+maildrop (1.2-1) unstable; urgency=low
+
+  * New upstream version (Closes: #74333, #68812)
+  * Added Build-Depends: debhelper
+  * Yet more fiddling with manpages for maildirmake(1) and deliverquota(8)
+
+ -- Steve Haslam <araqnid@debian.org>  Mon,  9 Oct 2000 15:59:28 +0100
+
+maildrop (0.76b-2) unstable; urgency=low
+
+  * Fixed upstream URL in copyright file (Closes: #62456)
+  * Made maildrop setgid mail (Closes: #62465)
+  * Added /etc/maildroprc as a conffile, but with no active directives
+
+ -- Steve Haslam <araqnid@debian.org>  Wed,  3 May 2000 13:16:19 +0100
+
+maildrop (0.76b-1) unstable; urgency=low
+
+  * New upstream version
+  * Kludge to work around putenv() prototype in glibc 2.1.3
+    (attacks #60960)
+  * Use alternatives for maildirmake and dotlock
+
+ -- Steve Haslam <araqnid@debian.org>  Mon,  3 Apr 2000 15:30:43 +0100
+
+maildrop (0.75-2) unstable; urgency=low
+
+  * Remove dotlock from /usr/bin to avoid conflicts (closes: #54008)
+
+ -- Steve Haslam <araqnid@debian.org>  Tue,  4 Jan 2000 12:20:20 +0000
+
+maildrop (0.75-1) unstable; urgency=low
+
+  * New upstream version
+
+ -- Steve Haslam <araqnid@debian.org>  Mon,  3 Jan 2000 15:57:20 +0000
+
+maildrop (0.74-2) unstable; urgency=low
+
+  * Remove maildirmake.1 and deliverquota.8 manpages to avoid
+    conflict with courier-imap
+
+ -- Steve Haslam <araqnid@debian.org>  Thu, 30 Dec 1999 18:14:27 +0000
+
+maildrop (0.74-1) unstable; urgency=low
+
+  * New maintainer
+  * New upstream version (Closes: #47841, #50807)
+  * Compiled with recent libstdc++ (Closes: #53475)
+  * maildrop/configure.in: added AC_LANG_C and AC_LANG_CPLUSPLUS
+    lines to get AC_FUNC_GETPGRP working
+  * debian/copyright: updated license location
+  * debian/control: updated standards-version
+  * debian/rules: newer debhelper, use /usr/share/doc/maildrop
+
+ -- Steve Haslam <araqnid@debian.org>  Thu, 30 Dec 1999 17:38:14 +0000
+
+maildrop (0.63-1) unstable; urgency=low
+
+  * New upstream version
+
+ -- Tommi Virtanen <tv@debian.org>  Fri, 19 Mar 1999 12:02:42 +0200
+
+maildrop (0.60-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Tommi Virtanen <tv@debian.org>  Sun, 29 Nov 1998 21:19:50 +0200
+
+maildrop (0.54a-2) unstable; urgency=low
+
+  * Clean autodependencies before packaging
+
+ -- Tommi Virtanen <tv@debian.org>  Wed,  9 Sep 1998 20:36:00 +0300
+
+maildrop (0.54a-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Tommi Virtanen <tv@debian.org>  Tue,  8 Sep 1998 12:01:27 +0300
+
+Local variables:
+mode: debian-changelog
+End:

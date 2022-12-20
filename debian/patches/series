@@ -1,0 +1,10 @@
+0001-sendmail-path.patch
+0002-filter-permissions.patch
+0003-permanent-err.patch
+0004-deliver-extra-newlines.patch
+0006-postfix-docs.patch
+0007-reproduceble-sh.patch
+###########################################
+# Upstream unmaintained -> security risk -> not for Debian
+# Disabled as below
+#0010-maildrop-2.3.0-dovecotauth.patch

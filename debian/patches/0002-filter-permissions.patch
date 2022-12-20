@@ -1,0 +1,43 @@
+Author: Josip Rodin <joy-packages@debian.org>
+Description: Drop warning for group since Debian uses UPG
+
+ maildrop (2.0.2-8) unstable; urgency=high
+
+  * Re-added the fix for #82986 - it went into sarge, and I still basically
+    agree with the rationale. Filter directory and files being accessible
+    to groups and the world is permissible; just check for world-writability.
+
+ -- Josip Rodin <joy-packages@debian.org>  Sun, 10 Sep 2006 00:12:11 +0200
+
+ maildrop (1.5.2-1) unstable; urgency=low
+
+  * Allow .mailfilter files (and ~/.mailfilters directory) to be
+    world/group-readable in maildrop/main.C, closes: #82986.
+
+ -- Josip Rodin <joy-packages@debian.org>  Sat,  8 Mar 2003 17:58:48 +0100
+ http://bugs.debian.org/82986
+
+--- maildrop.orig/libs/maildrop/main.C
++++ maildrop/libs/maildrop/main.C
+@@ -871,8 +871,8 @@ Buffer	value;
+ 			{
+ 				if ( !S_ISDIR(buf.st_mode))
+ 					tempfail("$HOME/.mailfilters should be a directory.");
+-				if ( buf.st_mode & (S_IRWXO|S_IRWXG))
+-					tempfail("Invalid permissions on $HOME/.mailfilters - remove world and group perms.");
++				if ( buf.st_mode & S_IWOTH)
++					tempfail("Invalid permissions on $HOME/.mailfilters - world-writable.");
+ 				if ( buf.st_uid != getuid())
+ 					tempfail("Invalid user ownership of $HOME/.mailfilters.");
+ 			}
+@@ -1066,8 +1066,8 @@ int	firstdefault=1;
+ 
+ 		if (!S_ISREG(stat_buf.st_mode))
+ 			tempfail("mailfilter file isn't a regular file.");
+-		if (stat_buf.st_mode & (S_IRWXO | S_IRWXG))
+-			tempfail("Cannot have world/group permissions on the filter file - for your own good.");
++		if (stat_buf.st_mode & S_IWOTH)
++			tempfail("Invalid permissions on the filter file - world-writable.");
+ 		if (stat_buf.st_uid != getuid())
+ 			tempfail("mailfilter file is owned by the wrong user.");
+ 

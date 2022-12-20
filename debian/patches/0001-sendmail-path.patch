@@ -1,0 +1,33 @@
+Author: Josip Rodin <joy-packages@debian.org>
+Description: Adjust sendmail path to Debian FSSTD
+
+ maildrop (1.5.2-1) unstable; urgency=low
+
+  * Eliminated all references to anything but /usr/sbin/sendmail.
+
+ -- Josip Rodin <joy-packages@debian.org>  Sat,  8 Mar 2003 17:58:48 +0100
+
+ Adjusted for 2.7.1 by Osamu Aoki <osamu@debian.org>
+
+--- maildrop.orig/libs/maildrop/maildrop.1.in
++++ maildrop/libs/maildrop/maildrop.1.in
+@@ -654,7 +654,7 @@ Global filtering instructions for delive
+ System mailbox (actual directory defined by the system administrator)\&.
+ .RE
+ .PP
+-/usr/lib/sendmail
++/usr/sbin/sendmail
+ .RS 4
+ Program to forward mail (exact program defined by the system administrator)\&.
+ .RE
+--- maildrop.orig/libs/maildrop/maildrop.html.in
++++ maildrop/libs/maildrop/maildrop.html.in
+@@ -388,7 +388,7 @@ terminates.</p></div><div class="refsect
+ Sets user's home directory, and related
+ variables. If NIS/YP is install, that will be used as well.</p></dd><dt><span class="term"><code class="filename">@withetcdir@/maildroprc</code></span></dt><dd><p>
+ Global filtering instructions for delivery mode.</p></dd><dt><span class="term"><code class="filename">/var/mail</code></span></dt><dd><p>
+-System mailbox (actual directory defined by the system administrator).</p></dd><dt><span class="term"><code class="filename">/usr/lib/sendmail</code></span></dt><dd><p>
++System mailbox (actual directory defined by the system administrator).</p></dd><dt><span class="term"><code class="filename">/usr/sbin/sendmail</code></span></dt><dd><p>
+ Program to forward mail (exact program defined by the system
+ administrator).</p></dd><dt><span class="term"><code class="filename">$HOME/.mailfilter</code></span></dt><dd><p>
+ Filtering instructions in delivery mode.</p></dd><dt><span class="term"><code class="filename">$HOME/.mailfilters</code></span></dt><dd><p>

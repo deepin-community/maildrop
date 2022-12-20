@@ -1,0 +1,10 @@
+# necessary until the courier-authlib package moves the libcourierauth.so
+# to /usr/lib, as requested in bug #378241
+maildrop binary: binary-or-shlib-defines-rpath usr/bin/maildrop /usr/lib/courier-authlib
+# this is obviously intential
+maildrop binary: setgid-binary usr/bin/lockmail.maildrop 2755 root/mail
+maildrop binary: setgid-binary usr/bin/maildrop 2755 root/mail
+# sadly the upstream install docs also contain some useful info
+# in the same file
+maildrop binary: package-contains-upstream-install-documentation usr/share/doc/maildrop/INSTALL.gz
+maildrop binary: package-contains-upstream-install-documentation usr/share/doc/maildrop/INSTALL.html

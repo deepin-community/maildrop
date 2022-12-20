@@ -1,0 +1,9 @@
+maildrop (2.7.1-1) unstable; urgency=medium
+
+  Pattern searches are now specified in UTF-8.  The maildrop program 
+  MIME-decodes the mail headers and contents and transcodes them to
+  the UTF-8 character set for searching purposes.  You may need to 
+  adjust your pattern search rules if you used latin-1 encoding etc..
+
+ -- Osamu Aoki <osamu@debian.org>  Sat, 01 Feb 2014 00:07:35 +0900
+

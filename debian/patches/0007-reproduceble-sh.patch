@@ -1,0 +1,23 @@
+From: Robbie Harwood <rharwood@club.cc.cmu.edu>
+Subject: maildrop: Fix reproducible build issue in package
+Date: Sun, 04 Dec 2016 13:31:11 -0500
+
+maildrop.makedat captures the build-time shell and uses it an interpreter
+after the package is built.  This patch uses /bin/sh instead.
+
+--- a/libs/maildir/sharedindexinstall.in
++++ b/libs/maildir/sharedindexinstall.in
+@@ -1,4 +1,4 @@
+-#! @SHELL@
++#!/bin/sh
+ #
+ # Copyright 2004 Double Precision, Inc.
+ # See COPYING for distribution information.
+--- a/libs/makedat/makedat.in
++++ b/libs/makedat/makedat.in
+@@ -1,4 +1,4 @@
+-#! @SHELL@
++#!/bin/sh
+ #
+ #
+ # Copyright 1998 - 2004 Double Precision, Inc.  See COPYING for

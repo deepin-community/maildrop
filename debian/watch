@@ -1,0 +1,6 @@
+# watch control file for uscan
+version=3
+# Stable releases are   maildrop-([^.]*)\.([^.]*)\.([^.]*)\.tar\.bz2
+# Snapshot releases are maildrop-([^.]*)\.([^.]*)\.([^.]*)\.([^.]*)\.tar\.bz2
+http://sf.net/courier/maildrop-([^.]*)\.([^.]*)\.([^.]*)\.tar\.bz2 debian uupdate
+

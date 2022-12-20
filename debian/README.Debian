@@ -1,0 +1,151 @@
+maildrop for Debian
+-------------------
+
+Using autoresponder under maildrop
+----------------------------------
+
+The use of carelessly written autoresponders, such as vacation (<= 3.3.0-0.4)
+which does not wait for its sendmail child to die and exits, under maildrop is
+deprecated since it may cause loss of messages.
+
+The maildrop sets a process group at the beginning and does
+
+    (void)kill( -getprocgroup(), SIGHUP );
+
+in the cleanup() method and wipes forked and executed sendmail before it could
+send any message.  This is upstream design choice of maildrop.
+
+See discussion at 
+ * http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=339749#25
+ * http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=339691#44
+
+Using maildrop per-user
+-----------------------
+
+You should be able to run maildrop without making it your default system
+MDA: just put "|/usr/bin/maildrop" in your ~/.forward file (including the
+quotes).
+
+Using maildrop system-wide
+--------------------------
+
+Here's a short recipe on how to set it as a MDA in Exim's exim.conf:
+
+Add this to the transports section (anywhere, order doesn't matter):
+
+maildrop_pipe:
+  driver = pipe
+  command = "/usr/bin/maildrop"
+  user = $local_part
+  group = mail
+  return_fail_output
+  return_path_add
+  delivery_date_add
+  envelope_to_add
+  check_string = "From "
+  escape_string = ">From "
+
+Notice that Exim has its own user/group setting mechanism so you don't have
+to utilize the -d option for maildrop (-d $local_part in this case).
+
+Add this to the routers section (at the end, order does matter):
+
+maildrop:
+  driver = localuser
+  transport = maildrop_pipe
+  require_files = ${local_part}:+${home}:+${home}/.mailfilter:+/usr/bin/maildrop
+  no_verify
+  headers_add = "Delivered-To: ${local_part}@${domain}"
+
+Note that Exim 3.x calls the latter section "directors" rather than "routers".
+
+Note also that the return_fail_output is much preferred over return_output,
+because maildrop will return a verbose message when encountering a temporary
+error message.
+
+That's it. It's not the only way nor the guaranteed correct way to make it
+work, but It Works For Me (TM) :)
+
+For Postfix, you should be able to make it work just by adding the following
+line to your /etc/postfix/main.cf file:
+
+mailbox_command = /usr/bin/maildrop
+
+Notice that Postfix also has its own user/group setting mechanism so you
+don't have to utilize the -d option for maildrop (-d ${USER} in this
+case).
+
+More information should be available at
+http://www.postfix.org/MAILDROP_README.html
+
+For Sendmail, it should be possible to use maildrop as a system-wide MDA
+by adding the following to your /etc/mail/sendmail.mc file:
+
+FEATURE(`local_procmail', `/usr/bin/maildrop', `maildrop -d $u').
+
+The same note about -d option applies as above; if Sendmail has a way of
+running maildrop with amended user data, that can be used instead of -d.
+
+Note also that maildrop with the Courier authlib plugin will also try to
+contact the Courier authdaemon when maildrop is invoked with the -d option.
+Failure to contact it will not be treated as a temporary error unless the
+-a option is also specified.  In this case, the daemon start up code of the
+courier-authdaemon package needs to be adjusted.  
+See http://bugs.debian.org/394779#62
+
+Debian changes
+--------------
+
+A few other miscellaneous Debian-specific patches are applied to the
+upstream source, here is the explanation:
+
+* Default permissions
+
+The default mail spool directory on the debian system has the following
+permission:
+
+ $ ls -ld /var/mail
+drwxrwsr-x 2 root mail 4096 Jun  2 10:08 /var/mail
+
+This allows us to ship maildrop and lockmail.maildrop commands with setgid
+mail instead of setuid root, as they can still do mailbox locking in the
+/var/mail directory. setuid root should never really be needed, and it poses
+a potential security risk (as does any other suid binary).
+
+* Manual pages
+
+Note that lockmail, maildirmake and deliverquota and the accompanying manual
+pages have been renamed to include the ".maildrop" suffix, in order to avoid
+conflicts and allow coexistence with courier (lockmail, maildirmake,
+deliverquota), qmail (maildirmake) and potentially others. Alternatives
+(symlinks) have been used instead, so you can choose which of the programs
+you want to use by default, using update-alternatives.
+
+* Privileges
+
+The go-r restriction on .mailfilter* is removed in the Debian package;
+the restriction that files may not be writable by the world remains.
+
+* Where to find more information
+
+The full list of patches is available in the source package's
+debian/patches/ directory, and at places like
+http://sources.debian.net/patches/maildrop/
+
+* Obsolete Dovecot auth patch
+
+The following patch is in the source package but disabled to be applied for 
+building the binary package.  This is because this patch's upstream is not 
+updated and maintained.
+
+0010-maildrop-2.3.0-dovecotauth.patch
+ Dovecot auth user lookup patch allows maildrop to perform user lookups 
+ directly against Dovecot in a similar way how they are done by Dovecot's 
+ LDA deliver.  It is extended with the command line option "-t". See
+ README.dovecotauth and http://wiki.dovecot.org/maildrop
+
+
+ -- Tommi Virtanen,  Tue,  8 Sep 1998 12:01:27 +0300
+ -- Josip Rodin,  Sun, 10 Sep 2006 12:16:15 +0200
+ -- Osamu Aoki, Wed, 15 Oct 2014 14:17:45 +0000
+

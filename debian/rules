@@ -1,0 +1,60 @@
+#!/usr/bin/make -f
+# Uncomment this to turn on verbose mode.                                                                                                                                                                                                    # export DH_VERBOSE = 1
+
+# see EXAMPLES in dpkg-buildflags(1) and read /usr/share/dpkg/*
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/default.mk
+
+# see FEATURE AREAS in dpkg-buildflags(1))
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+# see ENVIRONMENT in dpkg-buildflags(1))
+# package maintainers to append CFLAGS
+export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# package maintainers to append LDFLAGS
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+%:
+	dh $@ --with autotools-dev --with autoreconf 
+
+override_dh_autoreconf:
+	find $(CURDIR) -name Makefile.in -delete
+	dh_autoreconf --as-needed
+
+override_dh_auto_configure:
+# trust on the auto-detect of qmail failing (for sendmail compability)
+	dh_auto_configure -- \
+			--enable-use-dotlock=1 \
+			--enable-use-flock=1 \
+			--enable-sendmail=/usr/sbin/sendmail \
+			--enable-maildirquota \
+			--enable-authlib-tempreject=0 \
+			--with-db=gdbm \
+			--with-locking-method=fcntl
+
+override_dh_install:
+	dh_install
+# we use update-alternatives to manage these, because they're shared
+# by other packages, notably qmail, courier-imap, mutt, mush
+	cd debian/maildrop/usr/bin && mv deliverquota ../sbin/deliverquota.maildrop
+	cd debian/maildrop/usr/bin && mv lockmail lockmail.maildrop
+	cd debian/maildrop/usr/bin && mv maildirmake maildirmake.maildrop
+	cd debian/maildrop/usr/bin && mv makedat makedat.maildrop
+	cd debian/maildrop/usr/share/man/man8 && mv deliverquota.8 deliverquota.maildrop.8
+	cd debian/maildrop/usr/share/man/man1 && mv lockmail.1 lockmail.maildrop.1
+	cd debian/maildrop/usr/share/man/man1 && mv maildirmake.1 maildirmake.maildrop.1
+	cd debian/maildrop/usr/share/man/man1 && mv makedat.1 makedat.maildrop.1
+	cd debian/maildrop/usr/share/man/man5 && mv maildir.5 maildir.maildrop.5
+	cd debian/maildrop/usr/share/man/man7 && mv maildirquota.7 maildirquota.maildrop.7
+	ln -s ../man7/maildropfilter.7.gz debian/maildrop/usr/share/man/man5/maildroprc.5.gz
+	ln -s ../man7/maildropfilter.7.gz debian/maildrop/usr/share/man/man5/mailfilter.5.gz
+	ln -s makedat.1.gz debian/maildrop/usr/share/man/man1/makedatprog.1.gz
+# erase empty directories
+	find debian/maildrop/usr -type d -empty | xargs -r rmdir -p --ignore-fail-on-non-empty
+
+override_dh_fixperms:
+	dh_fixperms
+	(cd debian/maildrop/usr/bin && chgrp mail maildrop lockmail.maildrop)
+	(cd debian/maildrop/usr/bin && chmod g+s maildrop lockmail.maildrop)
+
+override_dh_auto_test:
+# skip test (require en_US.UTF-8) for now.  locales-all may be an option
